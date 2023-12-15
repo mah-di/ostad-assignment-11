@@ -27,6 +27,16 @@
                 </header>
             @endif
 
+            @if (session('message'))
+            <div class="py-2">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="py-2 px-4 sm:py-2 sm:px-8 bg-white shadow sm:rounded-lg">
+                        <p style="color: #58CCBD;"><b>{{ session('message') }}</b></p>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
