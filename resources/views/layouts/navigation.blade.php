@@ -28,6 +28,16 @@
                 </div>
             </div>
 
+            <!-- Search Bar -->
+            <div class="space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="mt-4">
+                    <form action="{{ route('product.index') }}" method="GET">
+                        <input class="py-1 px-3 rounded border-gray-200 bg-blue-50 type="text" name="q">
+                        <button class="py-1 px-3 rounded bg-sky-500 text-white text-xs" type="submit">Search Product</button>
+                    </form>
+                </div>
+            </div>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">

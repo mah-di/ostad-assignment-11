@@ -113,11 +113,13 @@ class ProductController extends Controller
             DB::table('products')->where('id', $id)->update($data);
 
             $status = ['success' => true, 'message' => 'Product updated.'];
+
+            return Redirect::route('product.show', $id)->with($status);
         } catch (Exception $exception) {
             $status = ['error' => true, 'message' => 'An unexpected error occured.'];
-        }
 
-        return Redirect::back()->with($status);
+            return Redirect::back()->with($status);
+        }
     }
 
     /**

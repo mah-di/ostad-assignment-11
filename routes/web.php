@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', []);
     Route::resource('products', ProductController::class)->names('product');
+    Route::resource('sales', SaleController::class)->names('sale');
 });
 
 require __DIR__.'/auth.php';
