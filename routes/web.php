@@ -16,18 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
+Route::get('/', [function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+}])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/', []);
     Route::resource('products', ProductController::class)->names('product');
     Route::resource('sales', SaleController::class)->names('sale');
+    Route::get('/sales-report', [SaleController::class, 'getSalesReport'])->name('sale.report');
 });
 
 require __DIR__.'/auth.php';

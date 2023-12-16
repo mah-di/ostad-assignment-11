@@ -18,6 +18,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
+            $table->unsignedDouble('selling_price', 8, 2);
             $table->unsignedInteger('unit');
             $table->unsignedDouble('total', 10, 2);
 

@@ -26,6 +26,16 @@
                         {{ __('Add Product') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('sale.index')" :active="request()->routeIs('sale.index')">
+                        {{ __('Invoices') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('sale.report')" :active="request()->routeIs('sale.report')">
+                        {{ __('Sales Overview') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Search Bar -->
@@ -89,6 +99,26 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
+                {{ __('Products') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('product.create')" :active="request()->routeIs('product.create')">
+                {{ __('Add Product') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('sale.index')" :active="request()->routeIs('sale.index')">
+                {{ __('Invoices') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('sale.report')" :active="request()->routeIs('sale.report')">
+                {{ __('Sales Overview') }}
             </x-responsive-nav-link>
         </div>
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,14 +17,18 @@ class ProductController extends Controller
     {
         $searchVal = $request->q;
 
-        if($searchVal) {
-            $products = DB::table('products')->where('title', 'LIKE', "%{$searchVal}%")->orWhere('serial_number', '=', $searchVal)->paginate(15, ['id', 'title', 'price', 'stock']);
-        }
-        else {
-            $products = DB::table('products')->paginate(15, ['id', 'title', 'price', 'stock']);
-        }
+        try {
+            if($searchVal) {
+                $products = DB::table('products')->where('title', 'LIKE', "{$searchVal}%")->orWhere('title', 'LIKE', "% {$searchVal}%")->orWhere('serial_number', '=', $searchVal)->paginate(15, ['id', 'title', 'price', 'stock']);
+            }
+            else {
+                $products = DB::table('products')->paginate(15, ['id', 'title', 'price', 'stock']);
+            }
 
-        return view('products.index', compact('products'));
+            return view('products.index', compact(['products', 'searchVal']));
+        } catch (Exception $exception) {
+            return Redirect::route('dashboard')->with(['error' => true, 'message' => 'An unexpected error occured. Coudn\'t retrieve data.']);
+        }
     }
 
     /**
@@ -67,13 +70,17 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = DB::table('products')->find($id);
+        try {
+            $product = DB::table('products')->find($id);
 
-        if ($product) {
-            return view('products.show', ['product' => $product]);
+            if ($product) {
+                return view('products.show', ['product' => $product]);
+            }
+
+            return Redirect::back()->with(['info' => true ,'message' => 'No Such Product Found']);
+        } catch (Exception $exception) {
+            return Redirect::route('dashboard')->with(['error' => true, 'message' => 'An unexpected error occured. Coudn\'t retrieve data.']);
         }
-
-        return Redirect::back()->with(['info' => true ,'message' => 'No Such Product found']);
     }
 
     /**
@@ -81,9 +88,17 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product = DB::table('products')->find($id);
+        try {
+            $product = DB::table('products')->find($id);
 
-        return view('products.edit', ['product' => $product]);
+            if ($product) {
+                return view('products.edit', ['product' => $product]);
+            }
+
+            return Redirect::back()->with(['info' => true ,'message' => 'No Such Product Found']);
+        } catch (Exception $exception) {
+            return Redirect::route('dashboard')->with(['error' => true, 'message' => 'An unexpected error occured. Coudn\'t retrieve data.']);
+        }
     }
 
     /**

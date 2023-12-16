@@ -1,43 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('All Products') }}
+            {{ __('All Invoices') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex justify-center py-8">
-                    <div class="">
-                        <a href="{{ route('product.create') }}">
-                            <span class="px-4 py-2 rounded bg-gray-500 hover:bg-green-400 text-lg text-white">
-                                Add New Product
-                            </span>
-                        </a>
-                    </div>
-                </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @foreach ($products as $product)
-                    <div class="p-4 bg-slate-50 dark:bg-gray-600">
+                    @foreach ($sales as $sale)
+                    <div class="my-4 p-4 bg-slate-50 dark:bg-gray-600">
 
-                        <a href="{{ route('product.show', $product->id) }}">
+                        <a href="{{ route('sale.show', $sale->id) }}">
                             <div class="p-2 bg-slate-100 dark:bg-gray-500">
-                                <p class="text-xl">{{ $product->title }}</p>
-                                <p class="text-sm">Price: {{ $product->price }}</p>
-                                <p class="text-sm">Stock: {{ $product->stock }}</p>
+                                <p class="text-xl">{{ $sale->title }}</p>
+                                <p class="text-sm">S/N: {{ $sale->serial_number }}</p>
+                                <p class="text-sm">Selling Price: {{ $sale->selling_price }}</p>
+                                <p class="text-sm">Units: {{ $sale->unit }}</p>
+                                <p class="text-sm">Total: {{ $sale->total }}</p>
                             </div>
                         </a>
-                        <div class="py-4">
-                            <a href="{{ route('sale.create', ['product_id' => $product->id]) }}">
+                        <div class="flex justify-end pt-4">
+                            <a href="{{ route('sale.create', ['product_id' => $sale->product_id]) }}">
                                 <span class="px-4 py-2 rounded bg-green-500/75 hover:bg-green-500 text-lg text-white">
-                                    Make Sale
-                                </span>
-                            </a>
-                            &nbsp;
-                            <a href="{{ route('product.edit', $product->id) }}">
-                                <span class="px-4 py-2 rounded bg-sky-500/75 hover:bg-sky-500 text-lg text-white">
-                                    Update
+                                    Sell Again
                                 </span>
                             </a>
                         </div>
@@ -51,7 +38,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="p-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            {{$products}}
+            {{$sales}}
         </div>
     </div>
 
