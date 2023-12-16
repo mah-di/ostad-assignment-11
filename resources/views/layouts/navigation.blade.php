@@ -42,7 +42,7 @@
             <div class="space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <div class="mt-4">
                     <form action="{{ route('product.index') }}" method="GET">
-                        <input class="py-1 px-3 rounded border-gray-200 bg-blue-50 type="text" name="q">
+                        <input class="py-1 px-3 rounded border-gray-200 bg-blue-50" placeholder="Product Title Or S/N" type="text" name="q">
                         <button class="py-1 px-3 rounded bg-sky-500 text-white text-xs" type="submit">Search Product</button>
                     </form>
                 </div>

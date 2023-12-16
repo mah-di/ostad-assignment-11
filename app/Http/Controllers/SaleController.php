@@ -13,12 +13,21 @@ class SaleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $sales = DB::table('sales as s')->select(['s.*', 'p.title', 'p.serial_number'])->join('products as p', 's.product_id', '=', 'p.id')->latest()->paginate(15);
+        $searchVal = $request->q;
 
-            return view('sales.index', compact('sales'));
+        try {
+            if ($searchVal === null)
+            {
+                $sales = DB::table('sales as s')->select(['s.*', 'p.title', 'p.serial_number'])->join('products as p', 's.product_id', '=', 'p.id')->latest()->paginate(15);
+            }
+            else
+            {
+                $sales = DB::table('sales as s')->select(['s.*', 'p.title', 'p.serial_number'])->join('products as p', 's.product_id', '=', 'p.id')->where('s.id', '=', $searchVal)->get();
+            }
+
+            return view('sales.index', compact('sales', 'searchVal'));
         } catch (Exception $exception) {
             return Redirect::route('dashboard')->with(['error' => true, 'message' => 'An unexpected error occured. Coudn\'t retrieve data.']);
         }
